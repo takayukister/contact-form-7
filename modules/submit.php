@@ -57,7 +57,7 @@ function wpcf7_tag_generator_submit( $contact_form, $args = '' ) {
 ?>
 <div class="control-box">
 <fieldset>
-<legend><?php echo sprintf( esc_html( $description ), $desc_link ); ?></legend>
+<legend><?php echo sprintf( esc_html( $description ), esc_url( $desc_link ) ); ?></legend>
 
 <table class="form-table">
 <tbody>

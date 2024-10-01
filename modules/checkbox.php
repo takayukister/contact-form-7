@@ -356,7 +356,7 @@ function wpcf7_tag_generator_checkbox( $contact_form, $args = '' ) {
 ?>
 <div class="control-box">
 <fieldset>
-<legend><?php echo sprintf( esc_html( $description ), $desc_link ); ?></legend>
+<legend><?php echo sprintf( esc_html( $description ), esc_url( $desc_link ) ); ?></legend>
 
 <table class="form-table">
 <tbody>
@@ -409,7 +409,7 @@ function wpcf7_tag_generator_checkbox( $contact_form, $args = '' ) {
 </div>
 
 <div class="insert-box">
-	<input type="text" name="<?php echo $type; ?>" class="tag code" readonly="readonly" onfocus="this.select()" />
+	<input type="text" name="<?php echo esc_attr( $type ); ?>" class="tag code" readonly="readonly" onfocus="this.select()" />
 
 	<div class="submitbox">
 	<input type="button" class="button button-primary insert-tag" value="<?php echo esc_attr( __( 'Insert Tag', 'contact-form-7' ) ); ?>" />
