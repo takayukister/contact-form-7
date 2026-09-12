@@ -29,18 +29,33 @@ function wpcf7_admin_menu() {
 	do_action( 'wpcf7_admin_menu' );
 
 	add_menu_page(
-		__( 'Contact Form 7', 'contact-form-7' ),
+		__( 'Contact Form 7 Dashboard', 'contact-form-7' ),
 		__( 'Contact', 'contact-form-7' )
 			. wpcf7_admin_menu_change_notice(),
 		'wpcf7_read_contact_forms',
-		'wpcf7',
-		'wpcf7_admin_management_page',
+		'wpcf7-dashboard',
+		'wpcf7_admin_dashboard_page',
 		'dashicons-email',
 		30
 	);
 
-	$edit = add_submenu_page( 'wpcf7',
-		__( 'Edit Contact Form', 'contact-form-7' ),
+	$dashboard = add_submenu_page(
+		'wpcf7-dashboard',
+		__( 'Contact Form 7 Dashboard', 'contact-form-7' ),
+		__( 'Dashboard', 'contact-form-7' )
+			. wpcf7_admin_menu_change_notice( 'wpcf7-dashboard' ),
+		'wpcf7_read_contact_forms',
+		'wpcf7-dashboard',
+		'wpcf7_admin_dashboard_page'
+	);
+
+	add_action( 'load-' . $dashboard, 'wpcf7_load_dashboard_page', 10, 0 );
+
+	$edit = add_submenu_page(
+		'wpcf7-dashboard',
+		wpcf7_get_current_contact_form()
+			? __( 'Edit Contact Form', 'contact-form-7' )
+			: __( 'Contact Forms', 'contact-form-7' ),
 		__( 'Contact Forms', 'contact-form-7' )
 			. wpcf7_admin_menu_change_notice( 'wpcf7' ),
 		'wpcf7_read_contact_forms',
@@ -50,7 +65,8 @@ function wpcf7_admin_menu() {
 
 	add_action( 'load-' . $edit, 'wpcf7_load_contact_form_admin', 10, 0 );
 
-	$addnew = add_submenu_page( 'wpcf7',
+	$addnew = add_submenu_page(
+		'wpcf7-dashboard',
 		__( 'Add Contact Form', 'contact-form-7' ),
 		__( 'Add Contact Form', 'contact-form-7' )
 			. wpcf7_admin_menu_change_notice( 'wpcf7-new' ),
@@ -64,7 +80,8 @@ function wpcf7_admin_menu() {
 	$integration = WPCF7_Integration::get_instance();
 
 	if ( $integration->service_exists() ) {
-		$integration = add_submenu_page( 'wpcf7',
+		$integration = add_submenu_page(
+			'wpcf7-dashboard',
 			__( 'Integration with External API', 'contact-form-7' ),
 			__( 'Integration', 'contact-form-7' )
 				. wpcf7_admin_menu_change_notice( 'wpcf7-integration' ),
@@ -226,6 +243,16 @@ add_filter(
 	},
 	10, 3
 );
+
+
+function wpcf7_load_dashboard_page() {
+
+}
+
+
+function wpcf7_admin_dashboard_page() {
+	require_once WPCF7_PLUGIN_DIR . '/admin/dashboard.php';
+}
 
 
 function wpcf7_load_contact_form_admin() {
