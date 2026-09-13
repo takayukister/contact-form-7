@@ -246,6 +246,11 @@ add_filter(
 
 
 function wpcf7_load_dashboard_page() {
+	do_action( 'wpcf7_admin_load',
+		wpcf7_superglobal_get( 'page' ),
+		wpcf7_current_action()
+	);
+
 	require_once WPCF7_PLUGIN_DIR . '/admin/includes/dashboard.php';
 
 	wp_add_dashboard_widget(
@@ -253,6 +258,8 @@ function wpcf7_load_dashboard_page() {
 		'Test',
 		'wpcf7_dashboard_test'
 	);
+
+	do_action( 'wpcf7_dashboard_setup' );
 
 	wp_enqueue_script( 'dashboard' );
 }
