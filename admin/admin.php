@@ -568,7 +568,7 @@ function wpcf7_plugin_action_links( $links, $file ) {
 	}
 
 	$settings_link = wpcf7_link(
-		menu_page_url( 'wpcf7', false ),
+		menu_page_url( 'wpcf7-dashboard', false ),
 		__( 'Settings', 'contact-form-7' )
 	);
 
