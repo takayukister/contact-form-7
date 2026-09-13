@@ -16,4 +16,10 @@ $formatter->append_preformatted(
 
 $formatter->end_tag( 'h1' );
 
+$formatter->append_start_tag( 'div', array(
+	'id' => 'dashboard-widgets-wrap',
+) );
+
+$formatter->call_user_func( 'wp_dashboard' );
+
 $formatter->print();
